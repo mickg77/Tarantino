@@ -1,0 +1,44 @@
+body {
+    background-color: #5ce3e3;
+    
+}
+
+.navbar {
+    background-color: #54aaae;
+    margin-bottom: 10px;
+    
+}
+
+.nav-link{
+    color: #f2c571;
+}
+
+.nav-link:hover{
+    color: #fff;
+    
+}
+
+.btn-primary {
+    background-color: #f9bc50;
+    color: #4d6068;
+    border-color: #54aaae;
+
+}
+
+table th {
+    color: #54949c;
+
+}
+
+
+.card {
+    margin: 0 auto;
+    background-color: #7ee2db;
+    
+    
+}
+
+.card img {
+    max-width: 190px;
+    margin: 0 auto ;
+}
