@@ -42,3 +42,9 @@ table th {
     max-width: 190px;
     margin: 0 auto ;
 }
+
+/*styling the row of images */
+.container {
+    margin-top: 20px;
+    text-align: center;
+}
