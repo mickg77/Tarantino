@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -21,8 +22,12 @@
                         <a class="nav-link" href="films.php">Films</a>
                         <a class="nav-link" href="admin.php">Admin</a>
                         <a class="nav-link" href="user.php">User</a>
-                        
-                      </div>
+                        <?php
+                        if(isset($_SESSION['login'])){
+                          echo'<a class="nav-link" href="logout.php">Logout</a>';
+                        }
+                      ?>
+                        </div>
                     </div>
                 
             </nav><!--end of top section-->
