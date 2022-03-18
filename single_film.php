@@ -1,10 +1,29 @@
 <?php require('connect.php');?>
 <?php include('header.php');?>
+<?php session_start(); ?>
            
             <!--STUFF GOES HERE-->
             <?php
+           
+            if(isset($_POST['comment_submit'])){
+                $film_id=$_POST["film_id"];
+                $title=$_POST["title_box"];
+                $comment=$_POST["comment_box"];
+                $user_id=1;
+
+                $stmt=$conn->prepare("INSERT INTO 
+                comments
+                (comment_title, comment, user_id, film_id)
+                VALUES
+                (:comment_title,:comment,:user_id,:film_id)");
+                $stmt->bindParam("comment_title",$title);
+                $stmt->bindParam("comment",$comment);
+                $stmt->bindParam("user_id",$user_id);
+                $stmt->bindParam("film_id",$film_id);
+                $stmt->execute();    
+            }
+
             $film_id=$_GET['film_id'];
-            echo $film_id;
             $stmt=$conn->prepare("SELECT * FROM films WHERE film_id =:film_id");
             $stmt->bindParam("film_id",$film_id);
             $stmt->execute();
@@ -34,6 +53,29 @@
                     <a class="mb-1 ms-3 small" href="#">Remove Comment</a>
                 <?php
                 }
+                if(isset($_SESSION['login'])){
+                    ?>
+                        <form name="comment" action="" method="POST">
+                        <div class="jumbotron">
+                            
+                            <input type="hidden" name="film_id" value="<?php echo $film_id;?>">
+                            <h4 class="display-6">Add a comment</h4>
+                            <!--textbox for head-->
+                            <input type="text" name="title_box">
+                            <hr class="my-4">
+                            <!--textarea for comment-->
+                            <textarea name="comment_box"></textarea>
+                            <button type="submit" name="comment_submit" class="w-50 my-1 btn btn-primary">Submit</button>    
+
+                            </div>    
+                        </form>
+                        
+                        
+
+                    <?php
+
+                }
+
                 ?>    
         
         </div>

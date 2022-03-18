@@ -1,3 +1,13 @@
+<!-- set up connections-->
+
+<!--check if form has been submitted-->
+    <!--get data from form-->
+    <!--check if username already exists-->
+        <!--if not then add to DB-->
+    <!--display error-->
+
+<!-- create form-->
+
 <?php session_start();?>
 <?php include('header.php');?>
 <?php require('connect.php');?>
@@ -5,28 +15,37 @@
 
 <?php
 
-if(isset($_POST['login'])){
+if(isset($_POST['signup'])){
   //get info from form
   $username = $_POST['loginBox'];
   $password = $_POST['passwordBox'];
-  $stmt=$conn->prepare("SELECT * FROM users WHERE username=:username AND password =:password");
+  $stmt=$conn->prepare("SELECT * FROM users WHERE username=:username");
   $stmt->bindParam("username",$username);
-  $stmt->bindParam("password",$password);
   $stmt->execute();
   
   if($stmt->rowCount()>0){
-    $_SESSION['login']=true;
-    
+      
     ?>
-    <div class="alert alert-success" role="alert">
-      Login successful.
+    <div class="alert alert-danger" role="alert">
+      Account already exists.
     </div>
     <?php
   }
   else{
+    INSERT INTO `users` (`user_id`, `username`, `password`, `active`, `user_type`) VALUES (NULL, 'michael', '1234', '1', 'user');
+    $stmt=$conn->prepare("INSERT INTO 
+    users (username, password, active, user_type)
+    VALUES
+    (:username, :password, :active, :user_type)");   
+    $stmt->bindParam("username",$username);
+    $stmt->bindParam("password",$password);
+    $stmt->bindParam("username",1);
+    $stmt->bindParam("username","user");
+
+    $stmt->execute();
     ?>
-    <div class="alert alert-danger" role="alert">
-      Login unsuccessful, please try again.
+    <div class="alert alert-success" role="alert">
+      Account added.
     </div>
     <?php
   }
@@ -54,7 +73,7 @@ if(!isset($_SESSION['login'])){
       
     </select>
     
-    <button name="login" type="submit" value="login" class="btn btn-primary" onclick="setCookie('name',document.getElementById('loginBox').value,8);">Sign In</button>
+    <button name="signup" type="submit" value="login" class="btn btn-primary" onclick="setCookie('name',document.getElementById('loginBox').value,8);">Sign In</button>
 </form>
 
 <?php
