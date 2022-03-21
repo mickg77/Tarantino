@@ -1,6 +1,6 @@
 <?php require('connect.php');?>
 <?php include('header.php');?>
-<?php session_start(); ?>
+
            
             <!--STUFF GOES HERE-->
             <?php
@@ -56,18 +56,25 @@
                 if(isset($_SESSION['login'])){
                     ?>
                         <form name="comment" action="" method="POST">
-                        <div class="jumbotron">
+                        
                             
                             <input type="hidden" name="film_id" value="<?php echo $film_id;?>">
-                            <h4 class="display-6">Add a comment</h4>
+                            
+                                <h4 class="display-6">Add a comment</h4>
+                            
                             <!--textbox for head-->
-                            <input type="text" name="title_box">
-                            <hr class="my-4">
+                            <div class="form-group">
+                                <label  for="title_box">Comment Title</label>
+                                <input type="text" name="title_box" id="title_box" class="form-control mx-sm-3">
+                            </div>
                             <!--textarea for comment-->
-                            <textarea name="comment_box"></textarea>
+                            <div class="form-group">
+                                <label for="comment_box">Comment</label>
+                                <textarea name="comment_box" class="form-control mx-sm-3"></textarea>
+                            </div>
                             <button type="submit" name="comment_submit" class="w-50 my-1 btn btn-primary">Submit</button>    
 
-                            </div>    
+                              
                         </form>
                         
                         

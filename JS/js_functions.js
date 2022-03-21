@@ -1,3 +1,5 @@
+console.log("Running");
+alert("blah");
 function checkCookie(){
     //can do various
     document.getElementById('welcome').innerHTML="Welcome, "+getCookie('name');
@@ -39,3 +41,22 @@ function getCookie(cname){
 
     //cookies have a format like... name=george; band=beatles; decade=60s;
 }
+
+
+
+        var input=document.getElementById("loginBox");
+        var text=document.getElementById("text");
+
+        //addEventListener
+        input.addEventListener("keyup", function(event){
+            
+
+            if(event.getModifierState("CapsLock")){
+                text.style.display="block";
+            }
+            else {
+                text.style.display="none";
+            }
+
+
+        });

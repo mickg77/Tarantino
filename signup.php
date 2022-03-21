@@ -8,7 +8,7 @@
 
 <!-- create form-->
 
-<?php session_start();?>
+
 <?php include('header.php');?>
 <?php require('connect.php');?>
 
@@ -16,9 +16,13 @@
 <?php
 
 if(isset($_POST['signup'])){
-  //get info from form
-  $username = $_POST['loginBox'];
-  $password = $_POST['passwordBox'];
+  
+  $salt ="anExtraBit";
+  $username = trim($_POST['loginBox']);
+  $password = trim($_POST['passwordBox']);
+  $password = md5($password.$salt);
+  
+
   $stmt=$conn->prepare("SELECT * FROM users WHERE username=:username");
   $stmt->bindParam("username",$username);
   $stmt->execute();
@@ -32,15 +36,14 @@ if(isset($_POST['signup'])){
     <?php
   }
   else{
-    INSERT INTO `users` (`user_id`, `username`, `password`, `active`, `user_type`) VALUES (NULL, 'michael', '1234', '1', 'user');
+    $user_type="user";
     $stmt=$conn->prepare("INSERT INTO 
     users (username, password, active, user_type)
     VALUES
-    (:username, :password, :active, :user_type)");   
+    (:username, :password, 1, :user_type)");   
     $stmt->bindParam("username",$username);
     $stmt->bindParam("password",$password);
-    $stmt->bindParam("username",1);
-    $stmt->bindParam("username","user");
+    $stmt->bindParam("user_type",$user_type);
 
     $stmt->execute();
     ?>
@@ -54,7 +57,7 @@ if(isset($_POST['signup'])){
 
 if(!isset($_SESSION['login'])){
   ?>
-  <form name="login" action="" method="POST">                     
+  <form name="login" action="" method="POST" class="inline">                     
   <div class="mb-3">
     <label for="loginBox" class="form-label">Username</label>
     <input type="text" class="form-control" id="loginBox" name="loginBox">
@@ -65,13 +68,13 @@ if(!isset($_SESSION['login'])){
     <label for="exampleInputPassword1" class="form-label">Password</label>
     <input type="password" class="form-control" id="exampleInputPassword1" name="passwordBox">
   </div>
+
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Re-Enter Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword2" name="passwordBox2">
+  </div>
     
-   <select class="form-select mb-3" aria-label="user type">
-      <option selected>Choose User Type</option>
-      <option value="user">User</option>
-      <option value="staff">Staff</option>
-      
-    </select>
+
     
     <button name="signup" type="submit" value="login" class="btn btn-primary" onclick="setCookie('name',document.getElementById('loginBox').value,8);">Sign In</button>
 </form>

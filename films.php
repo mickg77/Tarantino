@@ -1,6 +1,7 @@
+
 <?php require('connect.php');?>
 <?php include('header.php');?>
-           
+         
             <!--STUFF GOES HERE-->
             <h1>Films</h1>
             <table class="table table-striped">

@@ -1,6 +1,6 @@
 <?php include('header.php');?>
 <?php require('connect.php');?>
-<?php session_start();?>
+
 
 <?php
     if(session_destroy()){

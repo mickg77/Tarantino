@@ -46,5 +46,23 @@ table th {
 /*styling the row of images */
 .container {
     margin-top: 20px;
-    text-align: center;
+   
+    
+}
+
+
+label, input, button, form h4, select {
+    margin-left: 15px;
+    margin-top: 10px;
+}
+.form-control {
+    width: 75%;
+}
+
+button {
+    width: 25% !important;
+}
+
+#text {
+    display: hidden;
 }
